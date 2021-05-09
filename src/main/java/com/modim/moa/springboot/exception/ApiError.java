@@ -14,8 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiError {
 
-    //결과 코드
+    //결과 스타토스
     private final HttpStatus httpStatus;
+    //결과 코드
+    private final int resultCode;
     //결과 코드 메시지
     private final String resultMessage;
     //결과 내용
@@ -27,6 +29,7 @@ public class ApiError {
 
     public ApiError(HttpStatus httpStatus, String resultMessage, String resultDetail, Throwable exception) {
         this.httpStatus = httpStatus;
+        this.resultCode = httpStatus.value();
         this.resultMessage = resultMessage;
         this.resultDetail = resultDetail;
         this.resultErrMessage = exception.getLocalizedMessage();
