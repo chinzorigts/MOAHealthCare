@@ -17,7 +17,7 @@ public class UserService {
         User user = userRepository.findById(email).orElse(null);
         if(user == null)
         {
-            throw  new UserNotFoundException("No existing user is here");
+            throw new UserNotFoundException("No existing user is here", email);
         }
         return user;
     }

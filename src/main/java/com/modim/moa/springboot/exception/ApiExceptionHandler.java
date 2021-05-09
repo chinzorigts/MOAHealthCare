@@ -11,9 +11,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    protected ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request)
+    protected ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request)
     {
-        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex));
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage() + ex.getEmail(), ex.getLocalizedMessage(), ex));
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
