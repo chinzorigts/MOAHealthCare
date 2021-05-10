@@ -2,6 +2,7 @@ package com.modim.moa.springboot.service;
 
 import com.modim.moa.springboot.domain.user.User;
 import com.modim.moa.springboot.domain.user.UserRepository;
+import com.modim.moa.springboot.exception.UserAlreadyExistException;
 import com.modim.moa.springboot.exception.UserNotFoundException;
 import com.modim.moa.springboot.utils.StaticStrings;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +23,15 @@ public class UserService {
         }
         return user;
     }
+
+    public boolean checkIfUserExists(String email){
+        User user = userRepository.findById(email).orElse(null);
+        if(user != null)
+        {
+            throw new UserAlreadyExistException(StaticStrings.USER_ALREADY_EXISTS + " : " + email);
+        }
+        return true;
+    }
+
+
 }

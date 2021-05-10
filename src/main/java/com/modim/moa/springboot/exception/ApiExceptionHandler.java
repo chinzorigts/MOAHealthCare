@@ -17,6 +17,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, StaticStrings.FAIL, StaticStrings.FAIL_KR, ex));
     }
 
+    @ExceptionHandler(UserAlreadyExistException.class)
+    protected ResponseEntity<Object> handleUserAlreadyExistsException(Exception exception, WebRequest request)
+    {
+        return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, StaticStrings.FAIL, StaticStrings.FAIL_KR, exception));
+    }
+
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getHttpStatus());
     }
